@@ -24,6 +24,7 @@ const Navbar = () => {
                     <ul className='flex gap-5 text-center'>
                         <NavLink to="/buy" ><li className='text-xl font-medium '>Buy</li></NavLink>
                         <NavLink to="/sell" ><li className='text-xl font-medium '>Sell</li></NavLink>
+                        <NavLink to="/about" ><li className='text-xl font-medium '>About</li></NavLink>
                         <NavLink to="/contactus" ><li className='text-xl font-medium '>Contact Us</li></NavLink>
                     </ul>
                 </div>
@@ -34,7 +35,7 @@ const Navbar = () => {
                     <button onClick={()=> navigate("/login")} className='text-xl text-blue-500
                      hover:text-white font-medium py-1 px-5 
                      rounded-2xl hover:bg-blue-600  md:block 
-                     hidden duration-200 border-2 border-blue-500'>Login</button>
+                     hidden duration-200 border-2 border-blue-500 shadow'>Login</button>
                 </div>
                 {/* mobile menu section */}
                 <div onClick={()=> setOpen(!open)} className='md:hidden'>
