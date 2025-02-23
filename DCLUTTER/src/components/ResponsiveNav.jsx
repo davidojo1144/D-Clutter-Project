@@ -16,6 +16,7 @@ const ResponsiveNav = ({open}) => {
             >
                 <div className='bg-blue-500 text-white text-sm font-semibold uppercase py-10 m-6 rounded-3xl md:hidden'>
                     <ul className='flex flex-col items-center justify-center  gap-7'>
+                        <Link to="/" ><li>Home</li></Link>
                         <Link to="/buy" ><li>Buy</li></Link>
                         <Link to="/sell" ><li>Sell</li></Link>
                         <Link to="/about" ><li>About</li></Link>
