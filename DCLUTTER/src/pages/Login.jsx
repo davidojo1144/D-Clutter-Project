@@ -11,8 +11,8 @@ const Login = () => {
   const [message, setMessage] = useState("");
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const url = currentState === "Login"
       ? "https://reqres.in/api/login"
@@ -52,7 +52,7 @@ const Login = () => {
           className='w-full px-3 py-2 border border-gray-800'
           placeholder='First name'
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(event) => setFirstName(event.target.value)}
           required
         />
         )}
@@ -67,7 +67,7 @@ const Login = () => {
             className='w-full px-3 py-2 border border-gray-800'
             placeholder='Last name'
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(event) => setLastName(event.target.value)}
             required
           />
             )
@@ -78,7 +78,7 @@ const Login = () => {
         className='w-full px-3 py-2 border border-gray-800'
         placeholder='Email'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(event) => setEmail(event.target.value)}
         required
         />
         {
@@ -87,11 +87,11 @@ const Login = () => {
         ) :
         (
          <input
-         type="number"
+         type=""
          className='w-full px-3 py-2 border border-gray-800'
          placeholder='Phone number'
          value={number}
-         onChange={(e) => setNumber(e.target.value)}
+         onChange={(event) => setNumber(event.target.value)}
          required
         />
         )
@@ -102,7 +102,7 @@ const Login = () => {
         className='w-full px-3 py-2 border border-gray-800'
         placeholder='Password'
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(event) => setPassword(event.target.value)}
         required
         />
         <div className='w-full flex justify-between text-sm mt-[-8px]'>
