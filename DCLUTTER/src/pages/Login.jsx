@@ -3,36 +3,77 @@ import React, { useState } from 'react';
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [contact, setContact] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [message, setMessage] = useState("");
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
-    const url = currentState === "Login"
-      ? "https://reqres.in/api/login"
-      : "https://reqres.in/api/register";
+  //   const url = currentState === "Login"
+  //     ? "http://172.16.0.179:8080/User/login/"
+  //     : "http://172.16.0.179:8080/User/sign_up/";
 
-    const payload = currentState === "Login"
-      ? { email, password }
-      : { email, password, firstName, lastName, phoneNumber };
+  //   const payload = currentState === "Login"
+  //     ? { email, password }
+  //     : { email, password, firstName, lastName, contact };
 
-    try {
-      const response = await axios.post(url, payload);
-      setMessage(
-        `${currentState === "Login" ? "Login" : "Signup"} successful! Token: ${
-          response.data.token
-        }`
-      );
-    } catch (error) {
-      setMessage(error.response?.data?.error || `${currentState === "Login" ? "Login" : "Signup"} failed`);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(url, payload);
+  //     setMessage(
+  //       `${currentState === "Login" ? "Login" : "Signup"} successful! Token: ${
+  //         response.data.token
+  //       }`
+  //     );
+  //   } catch (error) {
+  //     setMessage(error.response?.data?.error || `${currentState === "Login" ? "Login" : "Signup"} failed`);
+  //   }
+//}
+
+const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [contact, setContact] = useState("");
+const [password, setPassword] = useState("");
+const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
+
+const handleSubmit = async (event) => {
+  event.preventDefault(); 
+
+  setLoading(true);
+  setMessage("");
+
+  try {
+    const response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
+      firstName,
+      lastName,
+      password,
+      email,
+      contact
+    });
+
+
+    setMessage(response.data.message);
+    console.log("Sign Up successful:", response.data);
+    alert("Sign Up successful!");
+  } catch (err) {
+  
+    setMessage(err.response?.data?.message || "An error occurred during signup.");
+    console.error("Sign Up error:", err);
+    alert("Sign Up error!");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+ 
 
   return (
     <form
@@ -90,8 +131,8 @@ const Login = () => {
          type=""
          className='w-full px-3 py-2 border border-gray-800'
          placeholder='Phone number'
-         value={number}
-         onChange={(event) => setNumber(event.target.value)}
+         value={contact}
+         onChange={(event) => setContact(event.target.value)}
          required
         />
         )
