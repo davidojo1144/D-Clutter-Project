@@ -2,69 +2,46 @@ import axios from 'axios';
 import React, { useState } from 'react';
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState("Sign Up"); // Toggle between Sign Up and Login
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [currentState, setCurrentState] = useState("Sign Up");
 
-  // Toggle between Sign Up and Login
-  const toggleState = () => {
-    setCurrentState(currentState === "Sign Up" ? "Login" : "Sign Up");
-    setMessage(""); // Clear any previous messages
-  };
+const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [contact, setContact] = useState("");
+const [password, setPassword] = useState("");
+const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault(); 
 
-    setLoading(true);
-    setMessage("");
+  setLoading(true);
+  setMessage("");
 
-    try {
-      let response;
-      if (currentState === "Sign Up") {
-        // Sign Up API call
-        response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
-          firstName,
-          lastName,
-          email,
-          contact,
-          password,
-        });
-      } else {
-        // Login API call
-        response = await axios.post("http://172.16.0.179:8080/User/login/", {
-          email,
-          password,
-        });
-      }
-
-      // Handle successful response
-      setMessage(response.data.message);
-      console.log("Response:", response.data);
-
-      // Store token in localStorage for Login
-      if (currentState === "Login" && response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        alert("Login successful!");
-      }
-    } catch (err) {
-      // Handle errors
-      setMessage(err.response?.data?.message || "An error occurred.");
-      console.error("Error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
+      firstName,
+      lastName,
+      password,
+      email,
+      contact
+    });
 
 
- 
+    setMessage(response.data.message);
+    console.log("Sign Up successful:", response.data);
+    alert("Sign Up successful!");
+  } catch (err) {
+  
+    setMessage(err.response?.data?.message || "An error occurred during signup.");
+    console.error("Sign Up error:", err);
+    alert("Sign Up error!");
+  } finally {
+    setLoading(false);
+  }
+};
 
-  return (
+return (
     <form
       onSubmit={handleSubmit}
       className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'
