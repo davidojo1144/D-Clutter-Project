@@ -4,73 +4,73 @@ import React, { useState } from 'react';
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
 
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [contact, setContact] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [message, setMessage] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  //   const url = currentState === "Login"
-  //     ? "http://172.16.0.179:8080/User/login/"
-  //     : "http://172.16.0.179:8080/User/sign_up/";
+    const url = currentState === "Login"
+      ? ""
+      : "http://172.16.0.179:8080/User/sign_up/";
 
-  //   const payload = currentState === "Login"
-  //     ? { email, password }
-  //     : { email, password, firstName, lastName, contact };
+    const payload = currentState === "Login"
+      ? { email, password }
+      : { firstName, lastName, password, email, contact };
 
-  //   try {
-  //     const response = await axios.post(url, payload);
-  //     setMessage(
-  //       `${currentState === "Login" ? "Login" : "Signup"} successful! Token: ${
-  //         response.data.token
-  //       }`
-  //     );
-  //   } catch (error) {
-  //     setMessage(error.response?.data?.error || `${currentState === "Login" ? "Login" : "Signup"} failed`);
-  //   }
-//}
+    try {
+      const response = await axios.post(url, payload);
+      setMessage(
+        `${currentState === "Login" ? "Login" : "Signup"} successful! Token: ${
+          response.data.token
+        }`
+      );
+    } catch (error) {
+      setMessage(error.response?.data?.error || `${currentState === "Login" ? "Login" : "Signup"} failed`);
+    }
+}
 
-const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [password, setPassword] = useState("");
-const [message, setMessage] = useState("");
-const [loading, setLoading] = useState(false);
+// const [firstName, setFirstName] = useState("");
+// const [lastName, setLastName] = useState("");
+// const [email, setEmail] = useState("");
+// const [contact, setContact] = useState("");
+// const [password, setPassword] = useState("");
+// const [message, setMessage] = useState("");
+// const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (event) => {
-  event.preventDefault(); 
+// const handleSubmit = async (event) => {
+//   event.preventDefault(); 
 
-  setLoading(true);
-  setMessage("");
+//   setLoading(true);
+//   setMessage("");
 
-  try {
-    const response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
-      firstName,
-      lastName,
-      password,
-      email,
-      contact
-    });
+//   try {
+//     const response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
+//       firstName,
+//       lastName,
+//       password,
+//       email,
+//       contact
+//     });
 
 
-    setMessage(response.data.message);
-    console.log("Sign Up successful:", response.data);
-    alert("Sign Up successful!");
-  } catch (err) {
+//     setMessage(response.data.message);
+//     console.log("Sign Up successful:", response.data);
+//     alert("Sign Up successful!");
+//   } catch (err) {
   
-    setMessage(err.response?.data?.message || "An error occurred during signup.");
-    console.error("Sign Up error:", err);
-    alert("Sign Up error!");
-  } finally {
-    setLoading(false);
-  }
-};
+//     setMessage(err.response?.data?.message || "An error occurred during signup.");
+//     console.error("Sign Up error:", err);
+//     alert("Sign Up error!");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
 
 
  
