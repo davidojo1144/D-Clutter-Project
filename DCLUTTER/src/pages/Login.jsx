@@ -4,42 +4,103 @@ import React, { useState } from 'react';
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
 
-const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [contact, setContact] = useState("");
-const [password, setPassword] = useState("");
-const [message, setMessage] = useState("");
-const [loading, setLoading] = useState(false);
-
-const handleSubmit = async (event) => {
-  event.preventDefault(); 
-
-  setLoading(true);
-  setMessage("");
-
-  try {
-    const response = await axios.post("http://172.16.0.179:8080/User/sign_up/", {
-      firstName,
-      lastName,
-      password,
-      email,
-      contact
-    });
+// const [firstName, setFirstName] = useState("");
+// const [lastName, setLastName] = useState("");
+// const [email, setEmail] = useState("");
+// const [contact, setContact] = useState("");
+// const [password, setPassword] = useState("");
+// const [message, setMessage] = useState("");
+// const [loading, setLoading] = useState(false);
 
 
-    setMessage(response.data.message);
-    console.log("Sign Up successful:", response.data);
-    alert("Sign Up successful!");
-  } catch (err) {
+
+
+
+// const handleSubmit = async (event) => {
+//   event.preventDefault(); 
+
+//   setLoading(true);
+//   setMessage("");
+
+//   try {
+//     const response = await axios.post("http://dclutter-production-52ee.up.railway.app:8080/User/sign_up/", {
+//       firstName,
+//       lastName,
+//       password,
+//       email,
+//       contact
+//     });
+
+
+//     setMessage(response.data.message);
+//     console.log("Sign Up successful:", response.data);
+//     alert("Sign Up successful!");
+//   } catch (err) {
   
-    setMessage(err.response?.data?.message || "An error occurred during signup.");
-    console.error("Sign Up error:", err);
-    alert("Sign Up error!");
-  } finally {
-    setLoading(false);
-  }
-};
+//     setMessage(err.response?.data?.message || "An error occurred during signup.");
+//     console.error("Sign Up error:", err);
+//     alert("Sign Up error!");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      let response;
+      if (currentState === "Sign Up") {
+      
+        response = await axios.post("http://dclutter-production-52ee.up.railway.app:8080/User/sign_up/", {
+          firstName,
+          lastName,
+          password,
+          email,
+          contact,
+        });
+      } else {
+        
+        response = await axios.post("https://dclutter-production-52ee.up.railway.app/User/login/", {
+          email,
+          password,
+        });
+      }
+
+      
+      setMessage(response.data.message);
+      console.log(`${currentState} successful:`, response.data);
+      alert(`${currentState} successful!`);
+
+      
+      if (currentState === "Login" && response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+    } catch (err) {
+      
+      setMessage(err.response?.data?.message || "An error occurred.");
+      console.error(`${currentState} error:`, err);
+      alert(`${currentState} error!`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
 
 return (
     <form

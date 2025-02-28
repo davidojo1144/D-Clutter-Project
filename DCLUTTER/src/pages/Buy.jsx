@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Title from '../components/Title';
 import { ClutterContext } from '../context/ClutterContext';
 import { useNavigate } from 'react-router-dom';
+import Search from '../components/Search';
 
 
 
@@ -42,6 +43,7 @@ const Buy = () => {
 
   return (
     <div className='container'>
+      <Search/>
       <div className='flex items-center justify-center text-xl font-bold pb-5'>
         <Title text1={"All"}  text2={"PRODUCTS"}  />
       </div>

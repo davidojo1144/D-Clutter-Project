@@ -10,7 +10,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className='container flex flex-col md:flex-row md:items-center justify-between gap-2 md:py-10 py-1'>
+      <div className='container md:border rounded-2xl shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-2 md:py-10 py-1'>
         <div className='space-y-4 md:py-0 py-2'>
             <h1 className='prata-regular md:text-5xl text-3xl'>Enjoy Affordable <br /><span className='prata-regular text-blue-600'>Valuables here</span></h1>
             <p className='text-sm'>Shop All Kind Of Products</p>

@@ -11,7 +11,7 @@ import AllProducts from './pages/AllProducts'
 import Product from './pages/Product'
 import ContactUs from './pages/ContactUs'
 import Orders from './pages/Orders'
-import Search from './components/Search'
+// import Search from './components/Search'
 import About from './pages/About'
 import Offer from './pages/Offer'
 
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/product" element={<Product/>} />
           <Route path="/contactus" element={<ContactUs/>} />
           <Route path="/order" element={<Orders/>} />
-          <Route path="/search" element={<Search/>} />
+          {/* <Route path="/search" element={<Search/>} /> */}
           <Route path="/about" element={<About/>} />
           <Route path="/offer" element={<Offer/>} />
         </Routes>

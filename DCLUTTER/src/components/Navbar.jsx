@@ -30,7 +30,7 @@ const Navbar = () => {
                 </div>
                 {/* icon section */}
                 <div className='flex  items-center justify-center md:gap-4 gap-1'>
-                <NavLink to="/search" ><img width="25px" src={assets.bluesearch} alt="" /></NavLink>
+                {/* <NavLink to="/search" ><img width="25px" src={assets.bluesearch} alt="" /></NavLink> */}
                 <NavLink to="/cart" ><img width="35px" src={assets.cart_icon} alt="" onClick={()=> setHover(!hover)} /></NavLink>
                     <button onClick={()=> navigate("/login")} className='text-xl text-blue-500
                      hover:text-white font-medium py-1 px-5 
