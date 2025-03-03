@@ -25,7 +25,7 @@ const Login = () => {
           contact,
         });
       } else {
-        response = await axios.post("/api/User/login/", {
+         response = await axios.post("/api/User/login/", {
           email,
           password,
         });
