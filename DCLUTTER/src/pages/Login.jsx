@@ -52,14 +52,14 @@ const Login = () => {
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setLoading(true);
-    setMessage("");
+    // setLoading(true);
+    // setMessage("");
 
     try {
       let response;
@@ -94,9 +94,10 @@ const Login = () => {
       setMessage(err.response?.data?.message || "An error occurred.");
       console.error(`${currentState} error:`, err);
       alert(`${currentState} error!`);
-    } finally {
-      setLoading(false);
-    }
+    } 
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
 
@@ -155,7 +156,7 @@ return (
         ) :
         (
          <input
-         type=""
+         type="tel"
          className='w-full px-3 py-2 border border-gray-800'
          placeholder='Phone number'
          value={contact}
@@ -174,13 +175,13 @@ return (
         required
         />
         <div className='w-full flex justify-between text-sm mt-[-8px]'>
-          <p className='cursor-pointer'>Forgot your password ?</p>
+          <p className='cursor-pointer hover:text-gray-500'>Forgot your password ?</p>
           {currentState === "Login" ? (
-            <p onClick={() => setCurrentState("Sign Up")} className='cursor-pointer'>
+            <p onClick={() => setCurrentState("Sign Up")} className='cursor-pointer hover:text-gray-500'>
               Create Account
             </p>
           ) : (
-            <p onClick={() => setCurrentState("Login")} className='cursor-pointer'>
+            <p onClick={() => setCurrentState("Login")} className='cursor-pointer hover:text-gray-500'>
               Login Here
             </p>
           )}
