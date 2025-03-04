@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { assets } from '../assets/assets';
 import ResponsiveNav from './ResponsiveNav';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate} from 'react-router-dom';
 
 
-const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
+
+const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [logs, setLogs] = useState("Login");
+  const token = localStorage.getItem("token");
 
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token from localStorage
-    setIsLoggedIn(false); // Update login state
-  };
+  
+  // useEffect(() => {
+  //   token ? 
+  //   console.log("Token exists: ", token) : 
+  //   console.log("Token doesn't exist");
+  // }, [token]);
 
+  
+  useEffect(() => {
+    if (token) {
+      setLogs("Log out"); 
+    } else {
+      setLogs("Login"); 
+    }
+  }, [token]); 
+
+  
+  
+  
   return (
     <>
       <nav>
@@ -42,10 +58,10 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
               <img width="35px" src={assets.cart_icon} alt="" />
             </NavLink>
             <button
-              onClick={isLoggedIn ? handleLogout : () => navigate("/login")}
+              onClick={()=> navigate("/login")}
               className='text-xl text-blue-500 hover:text-white font-medium py-1 px-5 rounded-2xl hover:bg-blue-600 md:block hidden duration-200 border-2 border-blue-500 shadow'
             >
-              {isLoggedIn ? "Log Out" : "Log In"}
+              {logs} 
             </button>
           </div>
 

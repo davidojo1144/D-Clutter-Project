@@ -1,9 +1,21 @@
 import { AnimatePresence,motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
 const ResponsiveNav = ({open}) => {
+
+    const [logs, setLogs] = useState("Login")
+    const token = localStorage.getItem("token")
+
+    useEffect(()=>{
+        if (token) {
+            setLogs("Log out")
+        }else{
+            setLogs(logs)
+        }
+    }, [token])
+
   return <AnimatePresence>
     {
         open && (
@@ -21,7 +33,7 @@ const ResponsiveNav = ({open}) => {
                         <Link to="/sell" ><li>Sell</li></Link>
                         <Link to="/about" ><li>About</li></Link>
                         <Link to="/contactus" ><li>Contact Us</li></Link>
-                        <Link to="/login" ><li>Login</li></Link>
+                        <Link to="/login" ><li>{logs}</li></Link>
                     </ul>
                 </div>
             </motion.div>
