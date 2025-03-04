@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ClutterContext } from "../context/ClutterContext";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { div } from "framer-motion/client";
 
 
 
@@ -14,10 +16,21 @@ const Sell = () => {
   const [itemPrice, setItemPrice] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [itemImage, setItemImage] = useState(null);
-  const token = localStorage.getItem("token")
+  const navigate = useNavigate()
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const token = localStorage.getItem("token")
+    if (!token) {
+      toast.error("You must be logged in to list an item")
+      setTimeout(()=>{
+        navigate("/login")
+      },4000)
+      return
+   }
+    
 
     if (!itemName || !itemDescription || !itemPrice || !itemCategory || !itemImage) {
       toast.error("Please fill out all fields.");
@@ -43,39 +56,33 @@ const Sell = () => {
       console.log("Success!: ", response.data);
       toast.success("Item listed successfully!");
 
-     setItemName("");
-     setItemDescription("");
-     setItemPrice("");
-     setItemCategory("");
-     setItemImage(null);
+      setItemName("");
+      setItemDescription("");
+      setItemPrice("");
+      setItemCategory("");
+      setItemImage(null);
       
     } 
     catch (error) {
       console.log("Error: ", error)
-      toast.error("An Error occured!")
+      toast.error("Failed to list item. Please try again.");
     }
 
-    
-
-    //  const handleFormLogin = ()=> {
-    //   useEffect(()=> {
-    //     token ? 
-    //   },[])
-    //  }
-
-
-     
-   
-     
-  };
+    };
 
   return (
-    <div className=" bg-blue-100 flex items-center justify-center p-4 md:p-8">
-      <div className="container bg-gray-100 p-8 rounded-lg shadow-xl w-full max-w-md">
-        <h1 className="md:text-3xl text-xl font-bold text-center prata-regular mb-6">Sell Your Item</h1>
+    <div className="container ">
+    <div>
+      <div>
+        <h1 className="text-center text-black md:text-3xl prata-regular">Sell Your Items with Ease!</h1>
+        <p className="md:text-xl text-gray-700 pt-5 text-sm text-center">Welcome to D Clutter, your go-to platform for selling items quickly and securely. Whether you're decluttering your home, upgrading your gadgets, or simply looking to make some extra cash, we’ve got you covered. Listing your item is fast, easy, and completely free!</p>
+      </div>
+    <div className=" flex items-center justify-center p-4 md:p-8">
+      <div className="container bg-gray-300 p-8 rounded-lg shadow-2xl w-full max-w-md">
+        <h1 className="md:text-2xl text-xl font-semibold text-center mb-6">Sell Your Item</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="itemName" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="itemName" className="block text-sm font-medium text-black">
               Item Name
             </label>
             <input
@@ -91,7 +98,7 @@ const Sell = () => {
 
           
           <div>
-            <label htmlFor="itemDescription" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="itemDescription" className="block text-sm font-medium text-black">
               Description
             </label>
             <textarea
@@ -106,7 +113,7 @@ const Sell = () => {
           </div>
 
           <div>
-            <label htmlFor="itemPrice" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="itemPrice" className="block text-sm font-medium text-black">
               Price  {currency} 
             </label>
             <input
@@ -122,7 +129,7 @@ const Sell = () => {
           </div>
 
           <div>
-            <label htmlFor="itemCategory" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="itemCategory" className="block text-sm font-medium text-black">
               Category
             </label>
             <select
@@ -144,7 +151,7 @@ const Sell = () => {
 
         
           <div>
-            <label htmlFor="itemImage" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="itemImage" className="block text-sm font-medium text-black">
               Upload Image
             </label>
             <input
@@ -166,6 +173,8 @@ const Sell = () => {
           </button>
         </form>
       </div>
+    </div>
+    </div>
     </div>
   );
 };
