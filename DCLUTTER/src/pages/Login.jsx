@@ -45,7 +45,7 @@ const Login = () => {
         // Handle successful sign-up
         setMessage(response.data.message);
         console.log("Sign Up successful:", response.data);
-        toast.success("Sign Up successful! Redirecting to login...");
+        toast.success("Sign Up successful! Please log in.");
 
         // Clear form fields after successful sign-up
         setFirstName("");
@@ -54,10 +54,8 @@ const Login = () => {
         setContact("");
         setPassword("");
 
-        // Redirect to login page after 2 seconds
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
+        // Switch to the login form
+        setCurrentState("Login");
       } else {
         response = await axios.post("/api/User/login/", {
           email,

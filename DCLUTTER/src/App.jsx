@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
@@ -19,13 +19,13 @@ import Offer from './pages/Offer'
 
 
 const App = () => {
-
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const location = useLocation()
 
   return (
     <AnimatePresence mode='wait'>
     <div className='overflow-x-hidden'>
-      <Navbar/>
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={ <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}> <Home/> </motion.div> } />
           <Route path="/buy" element={ <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}> <Buy/> </motion.div> } />
