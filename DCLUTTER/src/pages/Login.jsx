@@ -15,6 +15,13 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const navigate = useNavigate();
 
+  // Update currentState to "Logged In" when isLoggedIn is true
+  useEffect(() => {
+    if (isLoggedIn) {
+      setCurrentState("Logged In");
+    }
+  }, [isLoggedIn]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,39 +41,64 @@ const Login = () => {
           email,
           contact,
         });
+
+        // Handle successful sign-up
+        setMessage(response.data.message);
+        console.log("Sign Up successful:", response.data);
+        toast.success("Sign Up successful! Redirecting to login...");
+
+        // Clear form fields after successful sign-up
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setContact("");
+        setPassword("");
+
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
         response = await axios.post("/api/User/login/", {
           email,
           password,
         });
+
+        // Handle successful login
+        setMessage(response.data.message);
+        console.log("Login successful:", response.data);
+        toast.success("Login successful!");
+
+        // Save token to localStorage and update authentication state
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          setIsLoggedIn(true);
+        }
+
+        // Redirect to home page after 2 seconds
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
-
-      // Handle successful response
-      setMessage(response.data.message);
-      console.log(`${currentState} successful:`, response.data);
-      toast.success(`${currentState} successful!`);
-
-      // Save token to localStorage and update authentication state
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        setIsLoggedIn(true);
-      }
-
-      // Add a delay before redirecting
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
     } catch (err) {
       // Handle errors
       console.error(`${currentState} error:`, err.response?.data || err.message);
-      setMessage(err.response?.data?.message || "An error occurred.");
-      toast.error(`${currentState} failed, please try again!`);
+
+      // Display specific error message for email already in use
+      if (err.response?.data?.message?.includes("email")) {
+        setMessage("Email is already in use.");
+        toast.error("Email is already in use.");
+      } else {
+        setMessage(err.response?.data?.message || "An error occurred.");
+        toast.error(`${currentState} failed, please try again!`);
+      }
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false); // Update authentication state
+    setCurrentState("Login"); // Reset currentState to "Login" after logout
     navigate("/login"); // Redirect to login page
   };
 
@@ -158,6 +190,7 @@ const Login = () => {
           <button
             type="submit"
             className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
+            disabled={isLoggedIn} // Disable button if logged in
           >
             {currentState === "Login" ? "Log In" : "Sign Up"}
           </button>
