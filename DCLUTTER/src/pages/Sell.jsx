@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ClutterContext } from "../context/ClutterContext";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+
+
+
 
 const Sell = () => {
+  const {currency} = useContext(ClutterContext)
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [itemPrice, setItemPrice] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [itemImage, setItemImage] = useState(null);
+  const token = localStorage.getItem("token")
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
 
     // Validate form data
     if (!itemName || !itemDescription || !itemPrice || !itemCategory || !itemImage) {
-      alert("Please fill out all fields.");
+      toast.error("Please fill out all fields.");
       return;
     }
 
@@ -22,34 +32,59 @@ const Sell = () => {
     formData.append("itemDescription", itemDescription);
     formData.append("itemPrice", itemPrice);
     formData.append("itemCategory", itemCategory);
-    formData.append("itemImage", itemImage);
+    //formData.append("itemImage", itemImage);
 
-    // Simulate form submission (replace with actual API call)
-    console.log("Form Data:", {
-      itemName,
-      itemDescription,
-      itemPrice,
-      itemCategory,
-      itemImage,
-    });
+    // // Simulate form submission (replace with actual API call)
+    // console.log("Form Data:", {
+    //   itemName,
+    //   itemDescription,
+    //   itemPrice,
+    //   itemCategory,
+    //   itemImage,
+    // });
 
-    // Clear the form
-    setItemName("");
-    setItemDescription("");
-    setItemPrice("");
-    setItemCategory("");
-    setItemImage(null);
+    try {
+      // Send data to the backend using Axios
+      const response = await axios.post("https://your-backend-api.com/list-item", 
+        formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Required for file uploads
+        },
+      });
+      console.log("Success!: ", response.data);
+      toast.success("Item listed successfully!");
 
-    // Show success message
-    alert("Item listed successfully!");
+     setItemName("");
+     setItemDescription("");
+     setItemPrice("");
+     setItemCategory("");
+     setItemImage(null);
+      
+    } 
+    catch (error) {
+      console.log("Error: ", error)
+      toast.error("An Error occured!")
+    }
+
+    
+
+    //  const handleFormLogin = ()=> {
+    //   useEffect(()=> {
+    //     token ? 
+    //   },[])
+    //  }
+
+
+     
+   
+     
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="container bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className=" bg-blue-100 flex items-center justify-center p-4 md:p-8">
+      <div className="container bg-gray-100 p-8 rounded-lg shadow-xl w-full max-w-md">
         <h1 className="md:text-3xl text-xl font-bold text-center prata-regular mb-6">Sell Your Item</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Item Name */}
           <div>
             <label htmlFor="itemName" className="block text-sm font-medium text-gray-700">
               Item Name
@@ -65,7 +100,7 @@ const Sell = () => {
             />
           </div>
 
-          {/* Item Description */}
+          
           <div>
             <label htmlFor="itemDescription" className="block text-sm font-medium text-gray-700">
               Description
@@ -81,10 +116,9 @@ const Sell = () => {
             />
           </div>
 
-          {/* Item Price */}
           <div>
             <label htmlFor="itemPrice" className="block text-sm font-medium text-gray-700">
-              Price ($)
+              Price  {currency} 
             </label>
             <input
               type="number"
@@ -98,7 +132,6 @@ const Sell = () => {
             />
           </div>
 
-          {/* Item Category */}
           <div>
             <label htmlFor="itemCategory" className="block text-sm font-medium text-gray-700">
               Category
@@ -115,11 +148,12 @@ const Sell = () => {
               <option value="clothing">Clothing</option>
               <option value="furniture">Furniture</option>
               <option value="books">Books</option>
+              <option value="books">Vehincles</option>
               <option value="other">Other</option>
             </select>
           </div>
 
-          {/* Item Image Upload */}
+        
           <div>
             <label htmlFor="itemImage" className="block text-sm font-medium text-gray-700">
               Upload Image
