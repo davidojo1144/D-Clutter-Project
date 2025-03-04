@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { div } from "framer-motion/client";
+
 
 
 
@@ -73,13 +73,22 @@ const Sell = () => {
   return (
     <div className="container ">
     <div>
-      <div>
-        <h1 className="text-center text-black md:text-3xl prata-regular">Sell Your Items with Ease!</h1>
-        <p className="md:text-xl text-gray-700 pt-5 text-sm text-center">Welcome to D Clutter, your go-to platform for selling items quickly and securely. Whether you're decluttering your home, upgrading your gadgets, or simply looking to make some extra cash, we’ve got you covered. Listing your item is fast, easy, and completely free!</p>
+      <div className="text-center pb-10">
+        <h1 className=" text-black md:text-3xl text-xl ">Sell Your Items with Ease!</h1>
+        <p className="md:text-xl text-gray-700 md:pt-2 text-sm text-center">Welcome to <strong>D Clutter</strong>, your go-to platform for selling items quickly and securely. Whether you're decluttering your home, upgrading your gadgets, or simply looking to make some extra cash, we’ve got you covered. Listing your item is fast, easy, and completely free!</p>
+      </div>
+      <div className="text-center pb-10">
+        <h2 className="text-black md:text-3xl text-xl ">Why Sell with Us?</h2>
+        <ul className="text-gray-700">
+          <li><strong>Reach a Wide Audience:</strong> Connect with thousands of potential buyers in your area.</li>
+          <li><strong>Easy Listing Process:</strong> Fill out a simple form, upload a photo, and you're done!</li>
+          <li><strong>Secure Transactions:</strong> We ensure a safe and hassle-free selling experience.</li>
+          <li><strong>No Hidden Fees:</strong> List your items for free and keep more of your earnings.</li>
+        </ul>
       </div>
     <div className=" flex items-center justify-center p-4 md:p-8">
       <div className="container bg-gray-300 p-8 rounded-lg shadow-2xl w-full max-w-md">
-        <h1 className="md:text-2xl text-xl font-semibold text-center mb-6">Sell Your Item</h1>
+        <h1 className="md:text-2xl text-xl font-semibold text-center prata-regular mb-6">Sell Your Item</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="itemName" className="block text-sm font-medium text-black">

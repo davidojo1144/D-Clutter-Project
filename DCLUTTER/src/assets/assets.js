@@ -19,6 +19,7 @@ import twitter from "../assets/twitter.png"
 import about from "../assets/about.avif"
 import ceo from "../assets/Dave.jpg"
 import ceo2 from "../assets/Olawale.jpg"
+import sellpics from "../assets/sellpic.avif"
 
 
 
@@ -43,7 +44,8 @@ export const assets = {
     twitter,
     about,
     ceo,
-    ceo2 
+    ceo2,
+    sellpics
 }
 
 
