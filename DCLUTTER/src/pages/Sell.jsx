@@ -19,32 +19,21 @@ const Sell = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
-    // Validate form data
     if (!itemName || !itemDescription || !itemPrice || !itemCategory || !itemImage) {
       toast.error("Please fill out all fields.");
       return;
     }
 
-    // Create a FormData object for file upload
+    
     const formData = new FormData();
     formData.append("itemName", itemName);
     formData.append("itemDescription", itemDescription);
     formData.append("itemPrice", itemPrice);
     formData.append("itemCategory", itemCategory);
-    //formData.append("itemImage", itemImage);
+    formData.append("itemImage", itemImage);
 
-    // // Simulate form submission (replace with actual API call)
-    // console.log("Form Data:", {
-    //   itemName,
-    //   itemDescription,
-    //   itemPrice,
-    //   itemCategory,
-    //   itemImage,
-    // });
-
+    
     try {
-      // Send data to the backend using Axios
       const response = await axios.post("https://your-backend-api.com/list-item", 
         formData, {
         headers: {
