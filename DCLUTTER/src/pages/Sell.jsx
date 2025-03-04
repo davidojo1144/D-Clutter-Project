@@ -99,9 +99,9 @@ const Sell = () => {
           </div>
         </div>
       </div>
-      <div>
-        <h1>Ready to Sell?</h1>
-        <p>Fill out the form below to get started. It only takes a few minutes to list your item and start connecting with buyers. Let’s turn your clutter into cash!</p>
+      <div className="text-center pt-10">
+        <h1 className="md:text-3xl text-sm ">Ready to Sell?</h1>
+        <p className="text-gray-700 md:text-xl  text-sm">Fill out the form below to get started. It only takes a few minutes to list your item and start connecting with buyers. Let’s turn your clutter into cash!</p>
       </div>
     <div className=" flex items-center justify-center p-4 md:p-8">
       <div className="container bg-gray-300 p-8 rounded-lg shadow-2xl w-full max-w-md">
