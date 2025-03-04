@@ -1,19 +1,29 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
+    // Prevent sign-up/login if user is already logged in
+    if (isLoggedIn) {
+      toast.info("You are already logged in.");
+      return;
+    }
+
     try {
       let response;
       if (currentState === "Sign Up") {
@@ -25,30 +35,44 @@ const Login = () => {
           contact,
         });
       } else {
-         response = await axios.post("/api/User/login/", {
+        response = await axios.post("/api/User/login/", {
           email,
           password,
         });
       }
-  
+
+      // Handle successful response
       setMessage(response.data.message);
       console.log(`${currentState} successful:`, response.data);
-      alert(`${currentState} successful!`);
-  
+      toast.success(`${currentState} successful!`);
 
-      if (currentState === "Login" && response.data.token) {
+      // Save token to localStorage and update authentication state
+      if (response.data.token) {
         localStorage.setItem("token", response.data.token);
+        setIsLoggedIn(true);
       }
+
+      // Add a delay before redirecting
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
+      // Handle errors
       console.error(`${currentState} error:`, err.response?.data || err.message);
       setMessage(err.response?.data?.message || "An error occurred.");
-      alert(`${currentState} error!`);
+      toast.error(`${currentState} failed, please try again!`);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false); // Update authentication state
+    navigate("/login"); // Redirect to login page
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={!isLoggedIn ? handleSubmit : undefined}
       className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'
     >
       <div className='inline-flex items-center gap-4 mb-2 mt-10'>
@@ -56,75 +80,89 @@ const Login = () => {
         <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
       </div>
 
-      {currentState === 'Login' ? null : (
+      {isLoggedIn ? (
         <>
+          <p className="text-center">You are already logged in.</p>
+          <button
+            onClick={handleLogout}
+            className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
+          >
+            Log Out
+          </button>
+        </>
+      ) : (
+        <>
+          {currentState === 'Login' ? null : (
+            <>
+              <input
+                type="text"
+                className='w-full px-3 py-2 border border-gray-800'
+                placeholder='First name'
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+                required
+              />
+              <input
+                type="text"
+                className='w-full px-3 py-2 border border-gray-800'
+                placeholder='Last name'
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                required
+              />
+            </>
+          )}
+
           <input
-            type="text"
+            type="email"
             className='w-full px-3 py-2 border border-gray-800'
-            placeholder='First name'
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            placeholder='Email'
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             required
           />
+
+          {currentState === "Login" ? null : (
+            <input
+              type="tel"
+              className='w-full px-3 py-2 border border-gray-800'
+              placeholder='Phone number'
+              value={contact}
+              onChange={(event) => setContact(event.target.value)}
+              required
+            />
+          )}
+
           <input
-            type="text"
+            type="password"
             className='w-full px-3 py-2 border border-gray-800'
-            placeholder='Last name'
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
+            placeholder='Password'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
+
+          <div className='w-full flex justify-between text-sm mt-[-8px]'>
+            <p className='cursor-pointer hover:text-gray-500'>Forgot your password?</p>
+            {currentState === "Login" ? (
+              <p onClick={() => setCurrentState("Sign Up")} className='cursor-pointer hover:text-gray-500'>
+                Create Account
+              </p>
+            ) : (
+              <p onClick={() => setCurrentState("Login")} className='cursor-pointer hover:text-gray-500'>
+                Login Here
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
+          >
+            {currentState === "Login" ? "Log In" : "Sign Up"}
+          </button>
         </>
       )}
-
-      <input
-        type="email"
-        className='w-full px-3 py-2 border border-gray-800'
-        placeholder='Email'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        required
-      />
-
-      {currentState === "Login" ? null : (
-        <input
-          type="tel"
-          className='w-full px-3 py-2 border border-gray-800'
-          placeholder='Phone number'
-          value={contact}
-          onChange={(event) => setContact(event.target.value)}
-          required
-        />
-      )}
-
-      <input
-        type="password"
-        className='w-full px-3 py-2 border border-gray-800'
-        placeholder='Password'
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        required
-      />
-
-      <div className='w-full flex justify-between text-sm mt-[-8px]'>
-        <p className='cursor-pointer hover:text-gray-500'>Forgot your password?</p>
-        {currentState === "Login" ? (
-          <p onClick={() => setCurrentState("Sign Up")} className='cursor-pointer hover:text-gray-500'>
-            Create Account
-          </p>
-        ) : (
-          <p onClick={() => setCurrentState("Login")} className='cursor-pointer hover:text-gray-500'>
-            Login Here
-          </p>
-        )}
-      </div>
-
-      <button
-        type="submit"
-        className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
-      >
-        {currentState === "Login" ? "Sign In" : "Sign Up"}
-      </button>
 
       {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
     </form>
