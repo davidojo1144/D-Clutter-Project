@@ -28,11 +28,14 @@ const ContactUs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(!formData.name || !formData.email || !formData.message)
-      toast.error("Form field can't be empty")
+    if(!formData.name || !formData.email || !formData.message){
+      toast.info("Form field can't be empty")
+      return
+    }
+      
 
     if (!token) {
-      toast.error("You must be logged in first")
+      toast.warning("You must be logged in first")
       setTimeout(()=> {
         navigate("/login?redirect=/contactus");
       },3000)
