@@ -10,6 +10,14 @@ const ContactUs = () => {
     message: "",
   });
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target; 
+    setFormData({
+      ...formData, 
+      [name]: value, 
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form submitted:", formData);
@@ -65,7 +73,7 @@ const ContactUs = () => {
           {/* Right side form */}
           <div className="md:w-[45%] mt-8 md:mt-0">
             <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 space-y-4">
-              <input type="text" placeholder="Your name" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
+              <input type="text" onChange={handleInputChange} placeholder="Your name" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
               <input type="email" placeholder="Email Address" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
               <textarea placeholder="Type your message here" rows={4} className="w-full p-2 text-sm border border-gray-200 rounded resize-none focus:outline-none focus:border-teal-500"></textarea>
               <button type="submit" className="w-full bg-teal-600 text-white py-2 px-4 rounded text-sm font-medium hover:bg-teal-700 transition-colors">SEND MESSAGE</button>

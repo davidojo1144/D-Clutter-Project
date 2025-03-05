@@ -122,7 +122,6 @@ const Sell = () => {
               required
             />
           </div>
-
           
           <div>
             <label htmlFor="itemDescription" className="block text-sm font-medium text-black">
