@@ -44,9 +44,8 @@ const Login = () => {
           contact,
         });
 
-        // Handle successful sign-up
         setMessage(response.data.message);
-        console.log("Sign Up successful:", response.data);
+        //console.log("Sign Up successful:", response.data);
         toast.success("Sign Up successful! Please log in.");
 
         // Clear form fields after successful sign-up
