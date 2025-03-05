@@ -76,7 +76,7 @@ const Login = () => {
 
       }
     } catch (err) {
-      console.error(`${currentState} error:`, err.response?.data || err.message);
+      //console.error(`${currentState} error:`, err.response?.data || err.message);
       toast.error("Email is already in use.");
 
       
