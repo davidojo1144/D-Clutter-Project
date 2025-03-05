@@ -62,7 +62,7 @@ const Login = () => {
         });
 
         setMessage(response.data.message);
-        //console.log("Login successful:", response.data);
+        console.log("Login successful:", response.data);
         toast.success("Login successful!");
 
         if (response.data.token) {
@@ -77,15 +77,16 @@ const Login = () => {
       }
     } catch (err) {
       console.error(`${currentState} error:`, err.response?.data || err.message);
+      toast.error("Email is already in use.");
 
       
-      if (err.response?.data?.message?.includes("email")) {
-        setMessage("Email is already in use.");
-        toast.error("Email is already in use.");
-      } else {
-        setMessage(err.response?.data?.message || "An error occurred.");
-        toast.error(`${currentState} failed, please try again!`);
-      }
+      // if (err.response?.data?.message?.includes("email")) {
+      //   setMessage("Email is already in use.");
+      //   toast.error("Email is already in use.");
+      // } else {
+      //   setMessage(err.response?.data?.message || "An error occurred.");
+      //   toast.error(`${currentState} failed, please try again!`);
+      // }
     }
   };
 
