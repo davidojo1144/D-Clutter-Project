@@ -16,6 +16,9 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation()
 
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get('redirect') || '/'; 
+
   // Update currentState to "Logged In" when isLoggedIn is true
   useEffect(() => {
     if (isLoggedIn) {
@@ -75,10 +78,10 @@ const Login = () => {
         }
 
         setTimeout(() => {
-            const searchParams = new URLSearchParams(location.search);
-            const redirectPath = searchParams.get('redirect') || '/'; 
+          localStorage.setItem('token', 'your-token-here');
+          navigate(redirectPath, { replace: true });
         }, 2000);
-        
+
       }
     } catch (err) {
       // Handle errors

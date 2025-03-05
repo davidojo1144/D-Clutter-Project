@@ -24,15 +24,14 @@ const Sell = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        toast.error('You must be logged in to list an item');
-        setTimeout(() => {
-          navigate('/login?redirect=/sell');
-        }, 4000);
-      }
-    }, [navigate]);
+    const token = localStorage.getItem("token")
+    if (!token) {
+      toast.error("You must be logged in to list an item")
+      setTimeout(()=>{
+        navigate("/login?redirect=/sell");
+      },4000)
+      return
+   }
     
 
     if (!itemName || !itemDescription || !itemPrice || !itemCategory || !itemImage) {
