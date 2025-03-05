@@ -76,15 +76,13 @@ const Login = () => {
 
       }
     } catch (err) {
-      //console.error(`${currentState} error:`, err.response?.data || err.message);
-      toast.error("Email is already in use.");
-
-      
-      if (err.response?.data?.message?.includes("email")) {
-        setMessage("Email is already in use.");
+      if (err) {
+        //console.log(`${currentState} error:`, err.response?.data || err.message);
         toast.error("Email is already in use.");
-      } else {
+      }
+      else {
         setMessage(err.response?.data?.message || "An error occurred.");
+        //console.log(`${currentState} failed, please try again!`);
         toast.error(`${currentState} failed, please try again!`);
       }
     }
