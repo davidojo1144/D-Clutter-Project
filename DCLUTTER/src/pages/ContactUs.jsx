@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Phone, Mail, MapPin, Facebook, Twitter } from "lucide-react";
 import Title from "../components/Title";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const ContactUs = () => {
   const token = localStorage.getItem("token")
+  const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +27,9 @@ const ContactUs = () => {
     event.preventDefault();
     if (!token) {
       toast.error("You must be logged in first")
+      setTimeout(()=> {
+        navigate("/login")
+      },3000)
       return
     }
     setFormData({
