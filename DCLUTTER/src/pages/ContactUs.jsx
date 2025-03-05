@@ -38,7 +38,10 @@ const ContactUs = () => {
       return
     }
 
-    
+    if(!formData.name || !formData.email || !formData.message)
+      toast.error("Form field can't be empty")
+
+
     try {
       const response = await axios.post("http://localhost:5000/submit", formData);
 
