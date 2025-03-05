@@ -3,6 +3,8 @@ import { Phone, Mail, MapPin, Facebook, Twitter } from "lucide-react";
 import Title from "../components/Title";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 
 const ContactUs = () => {
@@ -14,18 +16,14 @@ const ContactUs = () => {
     email: "",
     message: "",
   });
-
-
   
-
-
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target; 
-  //   setFormData({
-  //     ...formData, 
-  //     [name]: value, 
-  //   });
-  // };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target; 
+    setFormData({
+      ...formData, 
+      [name]: value, 
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,15 +37,9 @@ const ContactUs = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post("https://your-api-endpoint.com/submit", formData);
 
-      if (response.ok) {
+    if (response.status === 200) {
         toast.success("Form sent successfully!");
         console.log("Form Submitted: ", formData)
         setFormData(
