@@ -19,18 +19,20 @@ const Sell = () => {
   const [itemImage, setItemImage] = useState(null);
   const navigate = useNavigate()
   
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const token = localStorage.getItem("token")
-    if (!token) {
-      toast.error("You must be logged in to list an item")
-      setTimeout(()=>{
-        navigate("/login")
-      },4000)
-      return
-   }
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('You must be logged in to list an item');
+        setTimeout(() => {
+          navigate('/login?redirect=/sell');
+        }, 4000);
+      }
+    }, [navigate]);
     
 
     if (!itemName || !itemDescription || !itemPrice || !itemCategory || !itemImage) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +14,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const navigate = useNavigate();
+  const location = useLocation()
 
   // Update currentState to "Logged In" when isLoggedIn is true
   useEffect(() => {
@@ -73,10 +74,11 @@ const Login = () => {
           setIsLoggedIn(true);
         }
 
-        // Redirect to home page after 2 seconds
         setTimeout(() => {
-          navigate("/");
+            const searchParams = new URLSearchParams(location.search);
+            const redirectPath = searchParams.get('redirect') || '/'; 
         }, 2000);
+        
       }
     } catch (err) {
       // Handle errors
@@ -188,7 +190,7 @@ const Login = () => {
           <button
             type="submit"
             className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
-            disabled={isLoggedIn} // Disable button if logged in
+            disabled={isLoggedIn} 
           >
             {currentState === "Login" ? "Log In" : "Sign Up"}
           </button>
