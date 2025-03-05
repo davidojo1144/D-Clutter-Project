@@ -48,14 +48,12 @@ const Login = () => {
         //console.log("Sign Up successful:", response.data);
         toast.success("Sign Up successful! Please log in.");
 
-        // Clear form fields after successful sign-up
         setFirstName("");
         setLastName("");
         setEmail("");
         setContact("");
         setPassword("");
 
-        // Switch to the login form
         setCurrentState("Login");
       } else {
         response = await axios.post("/api/User/login/", {
@@ -63,12 +61,10 @@ const Login = () => {
           password,
         });
 
-        // Handle successful login
         setMessage(response.data.message);
-        console.log("Login successful:", response.data);
+        //console.log("Login successful:", response.data);
         toast.success("Login successful!");
 
-        // Save token to localStorage and update authentication state
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
           setIsLoggedIn(true);
@@ -81,10 +77,9 @@ const Login = () => {
 
       }
     } catch (err) {
-      // Handle errors
       console.error(`${currentState} error:`, err.response?.data || err.message);
 
-      // Display specific error message for email already in use
+      
       if (err.response?.data?.message?.includes("email")) {
         setMessage("Email is already in use.");
         toast.error("Email is already in use.");
@@ -97,9 +92,9 @@ const Login = () => {
 
   const handleLogout = () => {
       localStorage.removeItem("token");
-      setIsLoggedIn(false); // Update authentication state
-      setCurrentState("Login"); // Reset currentState to "Login" after logout
-      navigate("/login"); // Redirect to login page
+      setIsLoggedIn(false); 
+      setCurrentState("Login"); 
+      navigate("/login"); 
   };
 
   return (
