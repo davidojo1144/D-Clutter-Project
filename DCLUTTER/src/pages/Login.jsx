@@ -80,13 +80,13 @@ const Login = () => {
       toast.error("Email is already in use.");
 
       
-      // if (err.response?.data?.message?.includes("email")) {
-      //   setMessage("Email is already in use.");
-      //   toast.error("Email is already in use.");
-      // } else {
-      //   setMessage(err.response?.data?.message || "An error occurred.");
-      //   toast.error(`${currentState} failed, please try again!`);
-      // }
+      if (err.response?.data?.message?.includes("email")) {
+        setMessage("Email is already in use.");
+        toast.error("Email is already in use.");
+      } else {
+        setMessage(err.response?.data?.message || "An error occurred.");
+        toast.error(`${currentState} failed, please try again!`);
+      }
     }
   };
 
