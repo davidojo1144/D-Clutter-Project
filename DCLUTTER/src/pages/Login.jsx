@@ -71,7 +71,6 @@ const Login = () => {
         }
 
         setTimeout(() => {
-          localStorage.setItem('token', 'your-token-here');
           navigate(redirectPath, { replace: true });
         }, 2000);
 
@@ -80,13 +79,7 @@ const Login = () => {
       console.error(`${currentState} error:`, err.response?.data || err.message);
 
       
-      if (err.response?.data?.message?.includes("email")) {
-        setMessage("Email is already in use.");
-        toast.error("Email is already in use.");
-      } else {
-        setMessage(err.response?.data?.message || "An error occurred.");
-        toast.error(`${currentState} failed, please try again!`);
-      }
+    
     }
   };
 
