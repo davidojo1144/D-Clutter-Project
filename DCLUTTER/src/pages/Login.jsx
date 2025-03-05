@@ -62,7 +62,7 @@ const Login = () => {
         });
 
         setMessage(response.data.message);
-        console.log("Login successful:", response.data);
+        //console.log("Login successful:", response.data);
         toast.success("Login successful!");
 
         if (response.data.token) {
