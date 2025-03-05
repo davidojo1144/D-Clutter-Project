@@ -28,7 +28,7 @@ const ContactUs = () => {
     if (!token) {
       toast.error("You must be logged in first")
       setTimeout(()=> {
-        navigate("/login")
+        navigate("/login?redirect=/contactus");
       },3000)
       return
     }
