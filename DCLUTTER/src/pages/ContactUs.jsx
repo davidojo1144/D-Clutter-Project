@@ -48,7 +48,7 @@ const ContactUs = () => {
 
     if (response.status === 200) {
         toast.success("Form sent successfully!");
-        console.log("Form Submitted: ", formData)
+        //console.log("Form Submitted: ", formData)
         setFormData(
           { 
             name: "", 
