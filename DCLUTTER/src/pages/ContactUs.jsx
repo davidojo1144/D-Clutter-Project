@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Facebook, Twitter } from "lucide-react";
 import Title from "../components/Title";
+import { toast } from "react-toastify";
+
 
 const ContactUs = () => {
+  const token = localStorage.getItem("token")
 
     const [formData, setFormData] = useState({
     name: "",
@@ -20,7 +23,17 @@ const ContactUs = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!token) {
+      toast.error("You must be logged in first")
+      return
+    }
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    })
     console.log("Form submitted:", formData);
+    toast.success("Form Submitted Successfully")
   };
 
   
@@ -73,9 +86,9 @@ const ContactUs = () => {
           {/* Right side form */}
           <div className="md:w-[45%] mt-8 md:mt-0">
             <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 space-y-4">
-              <input type="text" onChange={handleInputChange} placeholder="Your name" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
-              <input type="email" placeholder="Email Address" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
-              <textarea placeholder="Type your message here" rows={4} className="w-full p-2 text-sm border border-gray-200 rounded resize-none focus:outline-none focus:border-teal-500"></textarea>
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Your name" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
+              <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email Address" className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-teal-500" />
+              <textarea placeholder="Type your message here" name="message" value={formData.message} onChange={handleInputChange} rows={4} className="w-full p-2 text-sm border border-gray-200 rounded resize-none focus:outline-none focus:border-teal-500"></textarea>
               <button type="submit" className="w-full bg-teal-600 text-white py-2 px-4 rounded text-sm font-medium hover:bg-teal-700 transition-colors">SEND MESSAGE</button>
             </form>
           </div>
