@@ -10,8 +10,8 @@ const ContactUs = () => {
     message: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     console.log("Form submitted:", formData);
   };
 
@@ -32,31 +32,31 @@ const ContactUs = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-2">Contact Us</h2>
               <p className="text-teal-50 text-sm">
-                That guy called "Dave" is always ready to help you with your decluttering needs. Just give him a call or send him a message. But he is a stupid boy and if them born you well, remove wetin i type.
+              We’d love to hear from you! Whether you have a question, feedback, or just want to say hello, our team is here to help. Reach out to us through any of the channels below, and we’ll get back to you as soon as possible.
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4" />
-                <span>07085357538</span>
+                <span>+234-8200000000</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4" />
-                <span>declutteremail@email</span>
+                <span>Dclutteremail@email.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="h-4 w-4" />
-                <span>Obajeren</span>
+                <span>Lagos</span>
               </div>
             </div>
 
             {/* Social icons */}
             <div className="flex gap-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-100">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-100">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-100">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-100">
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
