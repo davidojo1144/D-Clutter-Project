@@ -15,6 +15,10 @@ const ContactUs = () => {
     message: "",
   });
 
+
+  
+
+
   const handleInputChange = (event) => {
     const { name, value } = event.target; 
     setFormData({
@@ -24,6 +28,34 @@ const ContactUs = () => {
   };
 
   const handleSubmit = (event) => {
+
+    try {
+      const response = await fetch("http://localhost:5000/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData(
+          { 
+            name: "", 
+            email: "", 
+            message: "" 
+          }); 
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+
     event.preventDefault();
     if (!token) {
       toast.error("You must be logged in first")
