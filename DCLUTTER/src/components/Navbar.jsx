@@ -11,12 +11,6 @@ const Navbar = () => {
   const [logs, setLogs] = useState("Login");
   const token = localStorage.getItem("token");
 
-  
-  // useEffect(() => {
-  //   token ? 
-  //   console.log("Token exists: ", token) : 
-  //   console.log("Token doesn't exist");
-  // }, [token]);
 
   
   useEffect(() => {
@@ -59,7 +53,7 @@ const Navbar = () => {
             </NavLink>
             <button
               onClick={()=> navigate("/login")}
-              className='text-xl text-blue-500 hover:text-white font-medium py-1 px-5 rounded-2xl hover:bg-blue-600 md:block hidden duration-200 border-2 border-blue-500 shadow'
+              className='text-xl text-blue-500  hover:text-white font-medium py-1 px-5 rounded-2xl hover:bg-gradient-to-br from-blue-600 to-teal-500 md:block hidden duration-200 border-2 border-blue-500 shadow'
             >
               {logs} 
             </button>

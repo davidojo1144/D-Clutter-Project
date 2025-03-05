@@ -21,7 +21,7 @@ const Hero = () => {
             </div>
             <button onClick={()=> navigate("/offer")} className='md:text-xl text-sm text-blue-500
                      hover:text-white md:font-semibold font-medium py-1 md:px-5 px-3
-                     rounded-2xl hover:bg-blue-600
+                     rounded-2xl hover:bg-gradient-to-br from-blue-600 to-teal-500
                     duration-200 border-2 border-blue-500 shadow'>Unlock Your Offer</button>
         </div>
         <div>

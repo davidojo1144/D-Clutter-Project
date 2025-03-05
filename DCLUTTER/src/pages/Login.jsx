@@ -19,7 +19,6 @@ const Login = () => {
   const searchParams = new URLSearchParams(location.search);
   const redirectPath = searchParams.get('redirect') || '/'; 
 
-  // Update currentState to "Logged In" when isLoggedIn is true
   useEffect(() => {
     if (isLoggedIn) {
       setCurrentState("Logged In");
@@ -29,7 +28,6 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Prevent sign-up/login if user is already logged in
     if (isLoggedIn) {
       toast.info("You are already logged in.");
       return;
@@ -99,10 +97,10 @@ const Login = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false); // Update authentication state
-    setCurrentState("Login"); // Reset currentState to "Login" after logout
-    navigate("/login"); // Redirect to login page
+      localStorage.removeItem("token");
+      setIsLoggedIn(false); // Update authentication state
+      setCurrentState("Login"); // Reset currentState to "Login" after logout
+      navigate("/login"); // Redirect to login page
   };
 
   return (
@@ -189,10 +187,9 @@ const Login = () => {
               </p>
             )}
           </div>
-
           <button
             type="submit"
-            className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-8 mt-4 font-light rounded'
+            className='bg-teal-500 hover:bg-teal-600 text-white py-2 px-8 mt-4 font-light rounded'
             disabled={isLoggedIn} 
           >
             {currentState === "Login" ? "Log In" : "Sign Up"}
