@@ -29,6 +29,7 @@ const Login = () => {
     event.preventDefault();
 
     if (isLoggedIn) {
+      console.log("You are already logged in.");
       toast.info("You are already logged in.");
       return;
     }
