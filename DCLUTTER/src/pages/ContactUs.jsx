@@ -28,7 +28,8 @@ const ContactUs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-  
+    if(!formData.name || !formData.email || !formData.message)
+      toast.error("Form field can't be empty")
 
     if (!token) {
       toast.error("You must be logged in first")
@@ -37,9 +38,6 @@ const ContactUs = () => {
       },3000)
       return
     }
-
-    if(!formData.name || !formData.email || !formData.message)
-      toast.error("Form field can't be empty")
 
 
     try {
