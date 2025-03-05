@@ -28,10 +28,7 @@ const ContactUs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(!formData){
-      toast.error("field can't be empty")
-      return
-    }
+  
 
     if (!token) {
       toast.error("You must be logged in first")
@@ -41,6 +38,7 @@ const ContactUs = () => {
       return
     }
 
+    
     try {
       const response = await axios.post("http://localhost:5000/submit", formData);
 
