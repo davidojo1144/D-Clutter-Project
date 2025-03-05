@@ -19,15 +19,24 @@ const ContactUs = () => {
   
 
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target; 
-    setFormData({
-      ...formData, 
-      [name]: value, 
-    });
-  };
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target; 
+  //   setFormData({
+  //     ...formData, 
+  //     [name]: value, 
+  //   });
+  // };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!token) {
+      toast.error("You must be logged in first")
+      setTimeout(()=> {
+        navigate("/login?redirect=/contactus");
+      },3000)
+      return
+    }
 
     try {
       const response = await fetch("http://localhost:5000/send-email", {
@@ -39,7 +48,8 @@ const ContactUs = () => {
       });
 
       if (response.ok) {
-        alert("Message sent successfully!");
+        toast.success("Form sent successfully!");
+        console.log("Form Submitted: ", formData)
         setFormData(
           { 
             name: "", 
@@ -47,31 +57,14 @@ const ContactUs = () => {
             message: "" 
           }); 
       } else {
-        alert("Failed to send message. Please try again.");
+        toast.error("Failed to send message. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 
-
-    event.preventDefault();
-    if (!token) {
-      toast.error("You must be logged in first")
-      setTimeout(()=> {
-        navigate("/login?redirect=/contactus");
-      },3000)
-      return
-    }
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    })
-    console.log("Form submitted:", formData);
-    toast.success("Form Submitted Successfully")
-  };
 
   
   return (
