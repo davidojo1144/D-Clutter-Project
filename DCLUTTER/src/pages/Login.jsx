@@ -29,7 +29,6 @@ const Login = () => {
     event.preventDefault();
 
     if (isLoggedIn) {
-      console.log("You are already logged in.");
       toast.info("You are already logged in.");
       return;
     }
@@ -46,7 +45,6 @@ const Login = () => {
         });
 
         setMessage(response.data.message);
-        //console.log("Sign Up successful:", response.data);
         toast.success("Sign Up successful! Please log in.");
 
         setFirstName("");

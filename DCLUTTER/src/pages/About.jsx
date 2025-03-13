@@ -2,10 +2,13 @@ import React, { useContext } from 'react'
 import Title from '../components/Title'
 import { assets } from '../assets/assets'
 import { ClutterContext } from '../context/ClutterContext'
+import { useNavigate } from 'react-router-dom'
+
 
 const About = () => {
 
   const {successful,rate} = useContext(ClutterContext)
+  const navigate = useNavigate
   
   return (
     <div>
@@ -51,7 +54,7 @@ const About = () => {
         <div className='text-center  md:text-xl text-sm md:mt-[10%] mt-[30%]'>
           <h2 className=' md:text-3xl md:font-semibold text-xl pb-5 md:pb-10'>Join Our Community</h2>
           <p>Ready to start buying or selling? Sign up today and experience the difference!</p>
-          <a className='hover:text-gray-500' >Get Started</a>
+          <a className='hover:text-gray-500'>Get Started</a>
         </div>
         </div>
       </div>
